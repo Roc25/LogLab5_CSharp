@@ -28,8 +28,11 @@ namespace Laba5
 
             int razm = 0;
 
+            
+
             for (int i = 0; i < size; i++){
                 for (int j = 0; j < size; j++){
+                    graph[i, i] = false;
                     Console.Write(graph[i,j] ? "1" : "0");
                     razm += graph[i, j] ? 1 : 0;
                 }
@@ -37,18 +40,18 @@ namespace Laba5
             }
 
             for (int i = 0; i < size; i++){
-                bool colc = false;
-                if (graph[i, i]) {
-                    razm--;
-                    colc = true;
-                }
+                int conc = 0;
                 bool izol = true;
                 bool dominant = true;
                 for (int j = 0; j < size; j++){
-                    if (graph[i,j]) { izol = false; }
+                    if (graph[i,j]) { izol = false; conc++; }
                     if (!graph[i,j] && i != j) { dominant = false; }
                 }
-                Console.WriteLine("Вершина " + i.ToString() + " " + (colc ? "Кольцевая" : "Не кольцевая") + " " + (izol ? "Изолированная" : "Не изолированная") + " " + (dominant ? "Доминантная":"Не доминантная"));
+                Console.WriteLine("Вершина " + i.ToString() + " "
+                    + (conc == 1 ? "Концевая" : "Не концевая") + " "
+                    + (izol ? "Изолированная" : "Не изолированная") + " "
+                    + (dominant ? "Доминантная" : "Не доминантная") + " "
+                    + "Степень - " + conc.ToString());
             }
             razm = razm / 2;
             Console.WriteLine("Размер - " + razm.ToString());
